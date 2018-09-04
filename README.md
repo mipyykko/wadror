@@ -1,24 +1,3 @@
-# README
+# Web-palvelinohjelmointi, Ruby on Rails, syksy 2018 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[Linkki sovellukseen](https://radiant-plains-31690.herokuapp.com) (juuressa ei tällä hetkellä mitään)
