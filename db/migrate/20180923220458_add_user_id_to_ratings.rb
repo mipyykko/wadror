@@ -1,4 +1,4 @@
-class AdduserToRatings < ActiveRecord::Migration[5.2]
+class AdduserIdToRatings < ActiveRecord::Migration[5.2]
   def change
     add_column :ratings, :user_id, :integer
   end
