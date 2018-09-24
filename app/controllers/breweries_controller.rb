@@ -49,7 +49,7 @@ class BreweriesController < ApplicationController
         format.html { render :edit }
         format.json { render json: @brewery.errors, status: :unprocessable_entity }
       end
-      end
+    end
   end
 
   # DELETE /breweries/1
@@ -63,26 +63,27 @@ class BreweriesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_brewery
-      @brewery = Brewery.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def brewery_params
-      params.require(:brewery).permit(:name, :year)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_brewery
+    @brewery = Brewery.find(params[:id])
+  end
 
-    def authenticate
-      admin_accounts = { "pekka" => "beer", "arto" => "foobar", "matti" => "ittam", "vilma" => "kangas" } 
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def brewery_params
+    params.require(:brewery).permit(:name, :year)
+  end
 
-      authenticate_or_request_with_http_basic do |username, password|
-        if not username.empty? and not password.empty? and password == admin_accounts[username]
-          login_ok = true
-        else
-          login_ok = false
-        end
-        login_ok
-      end
+  def authenticate
+    admin_accounts = { "pekka" => "beer", "arto" => "foobar", "matti" => "ittam", "vilma" => "kangas" }
+
+    authenticate_or_request_with_http_basic do |username, password|
+      login_ok = if !username.empty? && !password.empty? && (password == admin_accounts[username])
+                   true
+                 else
+                   false
+                 end
+      login_ok
     end
+  end
 end
