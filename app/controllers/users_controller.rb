@@ -58,12 +58,8 @@ class UsersController < ApplicationController
   def destroy
     respond_to do |format|
       if @user == current_user
-        user_id = @user.id
         @user.destroy
-        Rating.all.select { |r| r.user.id == user_id }.each(&:delete)
-        Membership.all.select { |m| m.user.id == user_id }.each(&:delete)
-        session[user_id] = nil
-        user_id = nil
+        session[:user_id] = nil
         @users = User.all
         format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
         format.json { head :no_content }

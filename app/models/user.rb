@@ -1,4 +1,9 @@
 class User < ApplicationRecord
+  has_many :ratings, dependent: :destroy
+  has_many :beers, through: :ratings
+  has_many :memberships, dependent: :destroy
+  has_many :beer_clubs, through: :memberships
+
   include RatingAverage
 
   has_secure_password
@@ -9,11 +14,5 @@ class User < ApplicationRecord
                        format: { with: /\A
                                   (?=.*[A-Z])
                                   (?=.*\d)
-                                /x },
-                       presence: true
-
-  has_many :ratings
-  has_many :beers, through: :ratings
-  has_many :memberships
-  has_many :beer_clubs, through: :memberships
+                                /x }
 end
