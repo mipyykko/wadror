@@ -1,8 +1,14 @@
 language: ruby
-
 rvm:
 - 2.5.1
-
 script:
 - bundle exec rails db:migrate
 - bundle exec rspec -fd spec
+deploy:
+  provider: heroku
+  api_key:
+    secure: yuwt/y+9izRU3IhvJjT2641oqHp1h4+T6k1Exkkss70ljfrJZOc3MIpRYn1UdOZCMviNPGomtF4YtrHHJGYva246TT6vgJlE498JqBtbed1ciZWAhcnh9UECF5X2vZnIvixO4ZIlhUnZCWehsM14hCZShcrhzlgQ2i1F1PoZ7mwga27++cRgDl7fMrMx+G+MXDWcWEpOR6ywNqjyLNwQAEd6icshQQZRyjIGfS17DkMyXYzwJcPwTwURuhpId7ai84Lpm/bWTniIzyj0AGAo4+s0PgHCzTkT3oVzK13hTZ7I4eCKnYE0V6fAAx/HxF2ApPbnM49yEZrh1JSjDGbIhQ9JPJAVZLSd04iLWUWhsmiNN5i0c8V84S9AOQ9JYwcNQIiyOkvcB/unLxAL3n0XNocEYp0rISZLWOzI8edtVdar79CmRUoqpxJEK7YQblhOcbTzI+GA3QlsVbrB6V0FwnLUOiBymJ8UScSS28U6pzfz3bsTQ7syvNdltOLQCsmoP22O68PDUrLxGdNPhZ37fwGVjCA2YRMpnmWIB/r+ESWF0PlIuTpH69gVwFI+oBt+Z93fd2vFjUeAHejyFyXvcwRfvfrQnsx8aBAhJ4Tsg5RAuRAmurGscODmEfdsmraeYV/NmqHeVKA0RbsoOCvffj+zqs6gxgtwwNkVyydv1ak=
+  run: 'rails db:migrate'    
+  app: radiant-plains-31690
+  on:
+    repo: mipyykko/wadror

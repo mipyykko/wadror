@@ -31,7 +31,7 @@ class User < ApplicationRecord
       .group("beers.style")
       .order("score DESC")
       .map(&:style)[0]
-      #.map{ |s| [s.style, s.score] }[0]
+    # .map{ |s| [s.style, s.score] }[0]
   end
 
   def favorite_brewery
