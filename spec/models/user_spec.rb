@@ -1,27 +1,8 @@
 require 'rails_helper'
 
+include Helpers
+
 RSpec.describe User, type: :model do
-  def create_user(username, password = nil, password_confirmation = nil)
-    User.create(username: username, password: password, password_confirmation: password_confirmation)
-  end
-
-  def create_beer_with_rating(object, score)
-    beer = FactoryBot.create(:beer)
-    FactoryBot.create(:rating, beer: beer, score: score, user: object[:user] )
-    beer
-  end
-
-  def create_beers_with_ratings(object, *scores)
-    scores.each do |score|
-      create_beer_with_rating(object, score)
-    end
-  end
-
-  def create_beer_with_rating_and_style(object, score, style)
-    beer = FactoryBot.create(:beer, style: style)
-    FactoryBot.create(:rating, beer: beer, score: score, user: object[:user] )
-    beer
-  end
 
   it "has username set correctly" do
     user = User.new username:"asdf"
@@ -141,8 +122,6 @@ RSpec.describe User, type: :model do
       best = create_beer_with_rating({ user: user }, 33)
       best.brewery = brewery
       best.save
-      
-      print(user.ratings.map(&:score))
 
       expect(user.favorite_brewery).to eq(brewery)
     end

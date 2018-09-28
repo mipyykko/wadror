@@ -59,6 +59,8 @@ group :test do
   # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
   gem 'factory_bot_rails'
+  gem 'launchy'
+  gem 'simplecov', require: false
 end
 
 group :development, :test do

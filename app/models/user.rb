@@ -41,6 +41,7 @@ class User < ApplicationRecord
       .joins(:beer)
       .select("beers.brewery_id, avg(ratings.score) as score")
       .group("beers.brewery_id")
+      .order("score DESC")
       .limit(1)
       .map{ |r| Brewery.find(r.brewery_id) }[0]
   end
