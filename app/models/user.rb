@@ -15,4 +15,33 @@ class User < ApplicationRecord
                                   (?=.*[A-Z])
                                   (?=.*\d)
                                 /x }
+
+  def favorite_beer
+    return nil if ratings.empty?
+
+    ratings.max_by(&:score).beer
+  end
+
+  def favorite_style
+    return nil if ratings.empty?
+
+    ratings
+      .joins(:beer)
+      .select("beers.style, avg(ratings.score) as score")
+      .group("beers.style")
+      .order("score DESC")
+      .map(&:style)[0]
+      #.map{ |s| [s.style, s.score] }[0]
+  end
+
+  def favorite_brewery
+    return nil if ratings.empty?
+
+    ratings
+      .joins(:beer)
+      .select("beers.brewery_id, avg(ratings.score) as score")
+      .group("beers.brewery_id")
+      .limit(1)
+      .map{ |r| Brewery.find(r.brewery_id) }[0]
+  end
 end
