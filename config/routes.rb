@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'signin', to: 'sessions#new'
   delete 'signout', to: 'sessions#destroy'
 
+
   resources :beers
   resources :breweries
   resources :ratings, only: [:index, :new, :create, :destroy]
@@ -15,6 +16,9 @@ Rails.application.routes.draw do
 
   resource :session, only: [:new, :create, :destroy]
 
+  resources :places, only: [:index, :show]
+
+  post 'places', to: 'places#search'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
 
