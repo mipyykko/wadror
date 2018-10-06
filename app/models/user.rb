@@ -25,12 +25,14 @@ class User < ApplicationRecord
   def favorite_style
     return nil if ratings.empty?
 
-    ratings
-      .joins(:beer)
-      .select("beers.style, avg(ratings.score) as score")
-      .group("beers.style")
-      .order("score DESC")
-      .map(&:style)[0]
+    Style.find(
+      ratings
+        .joins(:beer)
+        .select("beers.style_id, avg(ratings.score) as score")
+        .group("beers.style_id")
+        .order("score DESC")
+        .map(&:style_id)[0]
+    ).name
     # .map{ |s| [s.style, s.score] }[0]
   end
 

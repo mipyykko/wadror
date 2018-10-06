@@ -76,6 +76,8 @@ RSpec.describe User, type: :model do
 
   describe "favorite style" do
     let(:user){ FactoryBot.create(:user) }
+    let(:style1) { FactoryBot.create(:style, name: "litku" )}
+    let(:style2) { FactoryBot.create(:style, name: "paras" )}
 
     it "has method for it" do
       expect(user).to respond_to(:favorite_style)
@@ -86,16 +88,16 @@ RSpec.describe User, type: :model do
     end
 
     it "is the only one if only one rating" do
-      beer = create_beer_with_rating_and_style({ user: user }, 49, "litku")
+      beer = create_beer_with_rating_and_style({ user: user }, 49, style1)
 
-      expect(user.favorite_style).to eq("litku")
+      expect(user.favorite_style).to eq(beer.style.name)
     end
 
     it "is the one with highest rating" do
       create_beers_with_ratings({ user: user }, 1, 2, 3)
-      best = create_beer_with_rating_and_style({ user: user }, 33, 'paras')
+      best = create_beer_with_rating_and_style({ user: user }, 33, style2)
 
-      expect(user.favorite_style).to eq(best.style)
+      expect(user.favorite_style).to eq(best.style.name)
     end
   end
 

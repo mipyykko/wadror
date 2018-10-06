@@ -12,9 +12,14 @@ FactoryBot.define do
   
   factory :beer do
     name { "ööl" }
-    style { "litku" }
+    style
     brewery
   end
+
+  factory :style do
+    name { "litku" }
+    description { "hirveetä kattoo" }
+  end 
 
   factory :rating do
     beer

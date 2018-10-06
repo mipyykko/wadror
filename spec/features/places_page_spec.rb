@@ -24,6 +24,10 @@ describe "Places" do
   end
 
   it "if not found, error message shown" do
+    allow(BeermappingApi).to receive(:places_in).with("kumpula").and_return(
+      [ ]
+    )
+    
     search_for_place("kumpula")
 
     expect(page).to have_content "No places in kumpula"

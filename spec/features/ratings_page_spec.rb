@@ -5,8 +5,10 @@ include Helpers
 describe 'Rating' do
   let!(:brewery1) { FactoryBot.create(:brewery, name: "kana") }
   let!(:brewery2) { FactoryBot.create(:brewery, name: "muna") }
-  let!(:beer1) { FactoryBot.create(:beer, name: "ööö", brewery: brewery1, style: "lager") }
-  let!(:beer2) { FactoryBot.create(:beer, name: "ååå", brewery: brewery2, style: "litku") }
+  let!(:style1) { FactoryBot.create(:style, name: "lager" )}
+  let!(:style2) { FactoryBot.create(:style, name: "litku" )}
+  let!(:beer1) { FactoryBot.create(:beer, name: "ööö", brewery: brewery1, style: style1) }
+  let!(:beer2) { FactoryBot.create(:beer, name: "ååå", brewery: brewery2, style: style2) }
   let!(:user1) { FactoryBot.create(:user) }
   let!(:user2) { FactoryBot.create(:user, username: "zxcv") }
 
