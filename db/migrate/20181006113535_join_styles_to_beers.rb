@@ -5,8 +5,10 @@ class JoinStylesToBeers < ActiveRecord::Migration[5.2]
 
     beers.each do |beer|
       puts styles[beer.name]
-      beer.style_id = styles[beer.old_style][0].id
-      beer.save
+      if beer.old_style && styles[beer.old_style]
+        beer.style_id = styles[beer.old_style][0].id
+        beer.save
+      end
     end
   end
 end
