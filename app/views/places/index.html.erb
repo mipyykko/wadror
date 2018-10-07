@@ -7,6 +7,13 @@
   <%= submit_tag "Search" %>
 <% end %>
 
+<% if @weather %>
+  <h2>Weather in <%= params[:city].capitalize! %></h2>
+  <p><%= @weather.temp_c %> C</p>
+  <p><img src=<%= @weather.condition['icon'] %> /></p>
+  <p>wind <%= (@weather.wind_kph * 0.27).round(1) %> m/s, direction <%= @weather.wind_dir %></p>
+<% end %>
+
 <% if @places %>
   <table>
   <thead>
@@ -28,4 +35,5 @@
     <% end %>
   </tbody>
   </table>
+
 <% end %> 

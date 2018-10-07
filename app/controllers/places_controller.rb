@@ -4,6 +4,8 @@ class PlacesController < ApplicationController
 
   def search
     @places = BeermappingApi.places_in(params[:city])
+    @weather = ApixuApi.weather_in(params[:city])
+
     if @places.empty?
       redirect_to places_path, notice: "No places in #{params[:city]}"
     else
@@ -16,8 +18,8 @@ class PlacesController < ApplicationController
     if session[:last_search].empty? 
       redirect_to places_path
     else
-      places = Rails.cache.fetch(session[:last_search])
-      @place = places.find { |place| place.id == params[:id] } 
+      places = Rails.cache.fetch("PLACES_#{session[:last_search]}")
+      @place = places.find { |place| place.id == params[:id] }
     end
   end
 end
