@@ -1,8 +1,8 @@
-<p id="notice"><%= notice %></p>
+
 
 <h1>Memberships</h1>
 
-<table>
+<table class="table table hover">
   <thead>
     <tr>
       <th>Beer club</th>
@@ -18,7 +18,7 @@
         <td><%= membership.user %></td>
         <td><%= link_to 'Show', membership %></td>
         <td><%= link_to 'Edit', edit_membership_path(membership) %></td>
-        <td><%= link_to 'Destroy', membership, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to('Destroy', membership, class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' }) %></td>
       </tr>
     <% end %>
   </tbody>

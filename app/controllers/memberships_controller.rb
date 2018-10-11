@@ -15,7 +15,7 @@ class MembershipsController < ApplicationController
   # GET /memberships/new
   def new
     @membership = Membership.new
-    @beer_clubs = BeerClub.reject { |club| club.users.include? current_user }
+    @beer_clubs = BeerClub.all.reject { |club| club.users.include? current_user }
   end
 
   # GET /memberships/1/edit

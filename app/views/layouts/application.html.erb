@@ -10,26 +10,75 @@
   </head>
 
   <body>
-    <div class="navibar">
-      <%= link_to 'breweries', breweries_path %>
-      <%= link_to 'beers', beers_path %>
-      <%= link_to 'beer clubs', beer_clubs_path %>
-      <%= link_to 'ratings', ratings_path %>
-      <%= link_to 'places', places_path %>
-      |
-      <% if current_user %>
-        <%= link_to current_user.username, user_path(id: current_user.id) %>
-        <%= link_to 'new rating', new_rating_path %>
-        <%= link_to 'join a club', new_membership_path %>
-        <%= link_to 'sign out', signout_path, method: :delete %>
-      <% else %>
-        <%= link_to 'sign in', signin_path %>
-        <%= link_to 'sign up', signup_path %>
-      <% end %> 
-      <%= link_to 'users', users_path %>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <%= yield %>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <%= link_to 'breweries', breweries_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'beers', beers_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'beer clubs', beer_clubs_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'ratings', ratings_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'places', places_path, class: 'nav-link' %>
+          </li>
+          <% if current_user %> <!-- user_path(id: current_user.id) -->
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <%= current_user %>
+                </a>
+              <!-- <%= link_to(current_user, '#', class: 'nav-link dropdown toggle', role: 'button', data: { toggle: 'dropdown' } ) %> -->
+              <div class="dropdown-menu">
+                <%= link_to('new rating', new_rating_path, { class: 'dropdown-item' }) %>
+                <%= link_to('join a club', new_membership_path, class: 'dropdown-item') %>
+                <div class="dropdown-divider"></div>
+                <%= link_to('sign out', signout_path, method: :delete, class: 'dropdown-item') %>
+              </div>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to 'sign in', signin_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'sign up', signup_path, class: 'nav-link' %>
+            </li>
+          <% end %> 
+          <li class="nav-item">
+            <%= link_to 'users', users_path, class: 'nav-link' %>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container">
+      <% if notice %>
+        <div class="alert alert-primary" role="alert">
+          <%= notice %>
+        </div>
+      <% end %>
+      <div class="row">
+        <div class="col-sm-8">
+          <%= yield %>
+        </div>
+        <div class="col-sm-4">
+          <img 
+            src="http://www.cs.helsinki.fi/u/mluukkai/wadror/pint.jpg" 
+            width="200"
+            style="padding-top:30px"
+          >
+        </div>
+      </div>
+    </div>
 
     <% if current_user %>
       <p><%= current_user.username %> signed in</p>

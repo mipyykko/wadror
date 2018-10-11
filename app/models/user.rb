@@ -47,4 +47,8 @@ class User < ApplicationRecord
       .limit(1)
       .map{ |r| Brewery.find(r.brewery_id) }[0]
   end
+
+  def to_s
+    username
+  end
 end

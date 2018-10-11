@@ -1,38 +1,57 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @beer.name %>
-</p>
 
-<p>
-  <strong>Style:</strong>
-  <%= @beer.style.name %>
-</p>
+<table style="table table-hover">
+<tr>
+  <td colspan="2">
+    <h2><%= @beer.name %></h2>
+  </td>
+</tr>
 
-<p>
-  <strong>Brewery:</strong>
-  <%= @beer.brewery.name %>
-</p>
+<tr>
+  <td>
+    <strong>Style:</strong>
+  </td>
+  <td>
+    <%= @beer.style.name %>
+  </td>
+</tr>
 
-<p>
+<tr>
+  <td>
+    <strong>Brewery:</strong>
+  </td>
+  <td>
+    <%= @beer.brewery.name %>
+  </td>
+</tr>
+
+<tr>
+  <td colspan="2">
 <% if @beer.ratings.empty? %>
   beer hasn't been rated yet
 <% else %>
   Has <%= pluralize(@beer.ratings.count, 'rating') %>, average <b><%= @beer.average_rating.round %></b>
 <% end %>
+  </td>
+</tr>
+</table>
 
 <% if current_user %>
   <h4>Give rating</h4>
 
   <%= form_for(@rating) do |f| %>
-    <%= f.hidden_field :beer_id %>
-    score: <%= f.number_field :score %>
-    <%= f.submit %>
+    <div class="form-group row">  
+      <%= f.hidden_field :beer_id %>
+      <%= f.label :score, class: 'col-sm-2 col-form-label' %> 
+      <div class="col-sm-6">
+        <%= f.number_field :score, class: "form-control" %>
+      </div>
+      <%= f.submit class: 'btn btn-primary' %>
+    </div>
   <% end %> 
   
-  <%= link_to 'Edit', edit_beer_path(@beer) if current_user %> |
-  <%= link_to 'Destroy', @beer, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to('Edit', edit_beer_path(@beer), class: 'btn btn-primary') if current_user %> |
+  <%= link_to('Destroy', @beer, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger') %>
 <% end %>
 
-<%= link_to 'Back', beers_path %>
+<%= link_to 'Back', beers_path, class: 'btn btn-secondary' %>
