@@ -19,4 +19,8 @@ class Beer < ApplicationRecord
 
     ratings.map(&:score).sum / ratings.count.to_f
   end
+
+  def self.top(n)
+    Beer.all.sort_by { |b| -(b.average_rating || 0) }.first(n)
+  end
 end

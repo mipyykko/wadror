@@ -51,4 +51,8 @@ class User < ApplicationRecord
   def to_s
     username
   end
+
+  def self.top_raters(n)
+    User.all.sort_by { |u| -u.ratings.count }.first(n)
+  end
 end

@@ -1,0 +1,14 @@
+<div class="col-sm-4">
+  <h3><%= title %></h3>
+  <hr />
+  <% entities.each do |entity| %>
+    <div class="row">
+      <div class="col-8 col-sm-8">
+        <%= entity.name %>
+      </div>
+      <div class="col-2 col-sm-2">
+        <b><%= entity.average_rating %></b>
+      </div>
+    </div>
+  <% end %>
+</div>
