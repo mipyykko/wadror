@@ -13,8 +13,14 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= user.username %></td>
-        <td><%= link_to('Show', user, class: 'btn btn-primary') %></td>
+        <td><%= link_to(user.username, user) %></td>
+        <td>
+          <% if current_user.admin %>
+            <% if user.disabled %>
+              <span class="badge badge-info">disabled</span>
+            <% end %>             
+          <% end %>      
+        </td>
       </tr>
     <% end %>
   </tbody>

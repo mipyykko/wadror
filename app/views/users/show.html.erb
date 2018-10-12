@@ -1,12 +1,23 @@
 
 
 <p>
-  <h1><%= @user.username %></h1>
+  <h1>
+    <%= @user.username %>
+    <% if @user.disabled %>
+      <span class="badge badge-info">disabled</span>
+    <% end %>
+  </h1>
   <% if @user.ratings.length > 0 %>
-    has made <%= pluralize(@user.ratings.length, 'rating') %>, average <%= @user.average_rating.round %>
-  <% end %>  
+    <p>has made <%= pluralize(@user.ratings.length, 'rating') %>, average <%= @user.average_rating.round %></p>
+  <% end %>
+  <% if current_user.admin %>
+    <%= link_to (@user.disabled ? 'Enable user' : 'Disable user'), toggle_disabled_user_path(@user.id), method: :post, class: "btn btn-danger" %>
+  <% end %>
+  <% if @user.favorite_beer %>
+    <p>Favorite beer: <%= @user.favorite_beer.name %></p>
+  <% end %>
   <% if @user.favorite_style %>
-    <p>Favorite style: <%= @user.favorite_style %></p>
+    <p>Favorite style: <%= @user.favorite_style.name%></p>
   <% end %>
   <% if @user.favorite_brewery %>
     <p>Favorite brewery: <%= @user.favorite_brewery.name %></p>
@@ -44,6 +55,6 @@
   <% end %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Destroy', @user, method: :delete, data: { confirm: 'Are you sure?' } %> |
+<%= edit_and_destroy_buttons(@user) %>
+
 <%= link_to 'Back', users_path %>

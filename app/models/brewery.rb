@@ -1,13 +1,13 @@
 class Brewery < ApplicationRecord
   include RatingAverage
- 
+
   has_many :beers, dependent: :destroy
   has_many :ratings, through: :beers
 
   validates :name, presence: true
   validates :year, numericality: { greater_than_or_equal_to: 1040,
-                                  less_than_or_equal_to: ->(_year) { Date.today.year },
-                                  only_integer: true }
+                                   less_than_or_equal_to: ->(_year) { Date.today.year },
+                                   only_integer: true }
   # validates_numericality_of :year, less: ->(year) { 1040..Date.today.year }
 
   scope :active, -> { where active: true }
@@ -24,7 +24,7 @@ class Brewery < ApplicationRecord
     puts "changed to year #{year}"
   end
 
-  def self.top(n)
-    Brewery.all.sort_by { |b| -(b.average_rating || 0) }.first(n)
+  def self.top(number)
+    Brewery.all.sort_by { |b| -(b.average_rating || 0) }.first(number)
   end
 end

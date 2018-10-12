@@ -18,10 +18,12 @@
   </div>
 <% end %>
 
+<hr />
+
 <h2>Latest ratings</h2>
 <ul>
   <% @recent.each do |rating| %>
-    <li> <%= rating %> <%= link_to('delete', rating, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger') %></li>
+    <li> <%= rating %> by <%= rating.user.username %></li>
   <% end %>
 </ul>
 

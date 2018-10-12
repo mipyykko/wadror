@@ -15,7 +15,7 @@ class PlacesController < ApplicationController
   end
 
   def show
-    if session[:last_search].empty? 
+    if session[:last_search].empty?
       redirect_to places_path
     else
       places = Rails.cache.fetch("PLACES_#{session[:last_search]}")

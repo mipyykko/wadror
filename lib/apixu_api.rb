@@ -20,4 +20,3 @@ class ApixuApi
     ENV['APIXU_APIKEY']
   end
 end
-

@@ -6,8 +6,7 @@ class Style < ApplicationRecord
 
   validates :name, presence: true
 
-  def self.top(n)
-    Style.all.sort_by { |b| -(b.average_rating || 0) }.first(n)
+  def self.top(number)
+    Style.all.sort_by { |b| -(b.average_rating || 0) }.first(number)
   end
-
 end

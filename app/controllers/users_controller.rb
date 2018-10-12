@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_admin, only: [:toggle_disabled]
 
   # GET /users
   # GET /users.json
@@ -68,6 +69,15 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def toggle_disabled
+    user = User.find(params[:id])
+    user.update_attribute :disabled, !user.disabled
+
+    new_status = user.disabled ? "disabled" : "active"
+
+    redirect_to user, notice: "user status changed to #{new_status}"
   end
 
   private

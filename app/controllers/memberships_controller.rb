@@ -20,6 +20,7 @@ class MembershipsController < ApplicationController
 
   # GET /memberships/1/edit
   def edit
+    @beer_clubs = BeerClub.all.reject { |club| club.users.include? current_user }
   end
 
   # POST /memberships
