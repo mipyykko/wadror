@@ -1,11 +1,12 @@
 class BreweriesController < ApplicationController
   before_action :set_brewery, only: [:show, :edit, :update, :destroy]
-  before_action :ensure_that_signed_in, except: [:index, :show]
+  before_action :ensure_that_signed_in, except: [:index, :show, :list]
   before_action :ensure_that_admin, only: [:destroy]
 
   # GET /breweries
   # GET /breweries.json
   def index
+    @breweries = Brewery.all
     @active_breweries = Brewery.active
     @retired_breweries = Brewery.retired
   end
@@ -73,6 +74,9 @@ class BreweriesController < ApplicationController
     redirect_to brewery, notice: "activity changed to #{new_status}"
   end
 
+  def list
+  end
+  
   private
 
   # Use callbacks to share common setup or constraints between actions.

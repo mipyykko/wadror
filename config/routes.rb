@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     post 'toggle_activity', on: :member
   end
 
+  get 'beerlist', to: 'beers#list'
+  get 'brewerylist', to: 'breweries#list'
+
   resources :ratings, only: [:index, :new, :create, :destroy]
 
   root 'breweries#index'
