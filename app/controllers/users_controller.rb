@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     @memberships = @user.memberships.where confirmed: true
-    @pending = @user.memberships.where confirmed: [nil, false] 
+    @pending = @user.memberships.where confirmed: [nil, false]
   end
 
   # GET /users/new

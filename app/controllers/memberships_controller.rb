@@ -80,7 +80,6 @@ class MembershipsController < ApplicationController
     membership.save
 
     redirect_to membership.beer_club, notice: "membership of #{membership.user.username} confirmed"
-
   end
 
   private

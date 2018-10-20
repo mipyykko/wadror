@@ -90,7 +90,7 @@ class BreweriesController < ApplicationController
     expire_fragment("brewerylist")
   end
 
-    # Use callbacks to share common setup or constraints between actions.
+  # Use callbacks to share common setup or constraints between actions.
   def set_brewery
     @brewery = Brewery.find(params[:id])
   end
