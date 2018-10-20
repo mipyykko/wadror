@@ -12,14 +12,16 @@ class BeersController < ApplicationController
   # GET /beers
   # GET /beers.json
   def index
-    @beers = Beer.all
+    @order = params[:order] || "name"
 
-    order = params[:order] || "name"
+    return if request.format.html? && fragment_exist?("beerlist-#{@order}")
 
-    @beers = case order
+    @beers = Beer.includes(:brewery, :style).all
+
+    @beers = case @order
              when 'name' then @beers.sort_by(&:name)
-             when 'brewery' then @beers.sort_by(&:brewery.name)
-             when 'style' then @beers.sort_by(&:style.name)
+             when 'brewery' then @beers.sort_by { |b| b.brewery.name }
+             when 'style' then @beers.sort_by { |b| b.style.name }
              end
   end
 
@@ -42,6 +44,8 @@ class BeersController < ApplicationController
   # POST /beers
   # POST /beers.json
   def create
+    expire
+
     @beer = Beer.new(beer_params)
 
     respond_to do |format|
@@ -58,6 +62,8 @@ class BeersController < ApplicationController
   # PATCH/PUT /beers/1
   # PATCH/PUT /beers/1.json
   def update
+    expire
+
     respond_to do |format|
       if @beer.update(beer_params)
         format.html { redirect_to @beer, notice: 'Beer was successfully updated.' }
@@ -72,6 +78,8 @@ class BeersController < ApplicationController
   # DELETE /beers/1
   # DELETE /beers/1.json
   def destroy
+    expire
+
     @beer.destroy
     respond_to do |format|
       format.html { redirect_to beers_url, notice: 'Beer was successfully destroyed.' }
@@ -81,8 +89,12 @@ class BeersController < ApplicationController
 
   def list
   end
-  
+
   private
+
+  def expire
+    ["beerlist-name", "beerlist-brewery", "beerlist-style"].each{ |f| expire_fragment(f) }
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_beer
