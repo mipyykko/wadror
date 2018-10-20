@@ -1,5 +1,6 @@
 class MembershipsController < ApplicationController
   before_action :set_membership, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_that_signed_in, only: [:confirm]
 
   # GET /memberships
   # GET /memberships.json
@@ -63,6 +64,23 @@ class MembershipsController < ApplicationController
       format.html { redirect_to current_user, notice: "Membership in #{@membership.beer_club.name} was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def confirm
+    membership = Membership.find(params[:id])
+
+    return if membership.nil?
+
+    if current_user && membership.user == current_user
+      redirect_to membership.beer_club, notice: "you can't confirm yourself!"
+      return
+    end
+
+    membership.confirmed = true
+    membership.save
+
+    redirect_to membership.beer_club, notice: "membership of #{membership.user.username} confirmed"
+
   end
 
   private

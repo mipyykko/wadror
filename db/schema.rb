@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_12_171952) do
+ActiveRecord::Schema.define(version: 2018_10_20_131040) do
 
   create_table "beer_clubs", force: :cascade do |t|
     t.string "name"
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2018_10_12_171952) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "confirmed"
     t.index ["beer_club_id"], name: "index_memberships_on_beer_club_id"
     t.index ["user_id"], name: "index_memberships_on_user_id"
   end

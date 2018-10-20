@@ -9,7 +9,7 @@ class BeerClubsController < ApplicationController
     @beer_clubs = BeerClub.all
 
     order = params[:order] || "name"
-    
+
     @beer_clubs = case order
                   when 'name' then @beer_clubs.sort_by(&:name)
                   when 'founded' then @beer_clubs.sort_by(&:founded)
@@ -22,6 +22,7 @@ class BeerClubsController < ApplicationController
   def show
     if current_user
       @membership = current_user.memberships.find { |m| m.beer_club_id = params[:id] }
+
       return @membership if !@membership.nil?
     end
 
@@ -45,6 +46,8 @@ class BeerClubsController < ApplicationController
 
     respond_to do |format|
       if @beer_club.save
+        Membership.create beer_club: @beer_club, user: current_user, confirmed: true
+
         format.html { redirect_to @beer_club, notice: 'Beer club was successfully created.' }
         format.json { render :show, status: :created, location: @beer_club }
       else

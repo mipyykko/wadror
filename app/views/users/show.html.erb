@@ -44,14 +44,23 @@
 <p>
   <h2>beer clubs</h2>
 
-  <% if @user.beer_clubs %>
+  <% if !@memberships.empty? %>
     <ul>
-    <% @user.beer_clubs.each do |club| %>
-      <li><%= club.name %></li>
+    <% @memberships.each do |m| %>
+      <li><%= m.beer_club.name %></li>
     <% end %>
     </ul>
   <% else %>
     no memberships
+  <% end %>
+
+  <% if !@pending.empty? %>
+    <h3>pending confirmation</h3>
+    <ul>
+    <% @pending.each do |m| %>
+      <li><%= m.beer_club.name %></li>
+    <% end %>
+    </ul>
   <% end %>
 </p>
 

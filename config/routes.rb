@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :styles
-  resources :memberships
+  resources :memberships do
+    put 'confirm', on: :member
+  end
   resources :beer_clubs
   resources :users do
     post 'toggle_disabled', on: :member
