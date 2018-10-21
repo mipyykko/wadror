@@ -32,6 +32,9 @@
           <li class="nav-item">
             <%= link_to 'places', places_path, class: 'nav-link' %>
           </li>
+          <li class="nav-item">
+            <%= link_to 'users', users_path, class: 'nav-link' %>
+          </li>
           <% if current_user %> <!-- user_path(id: current_user.id) -->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,10 +55,10 @@
             <li class="nav-item">
               <%= link_to 'sign up', signup_path, class: 'nav-link' %>
             </li>
+            <li class="nav-item">
+              <a href="/auth/github" class="nav-link"><span class="fa fa-github">&nbsp;</span>sign in with github</a>
+            </li>
           <% end %> 
-          <li class="nav-item">
-            <%= link_to 'users', users_path, class: 'nav-link' %>
-          </li>
         </ul>
       </div>
     </nav>

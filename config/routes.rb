@@ -31,6 +31,9 @@ Rails.application.routes.draw do
   resources :places, only: [:index, :show]
 
   post 'places', to: 'places#search'
+
+  get 'auth/:provider/callback', to: 'sessions#create_oauth'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
 end
 

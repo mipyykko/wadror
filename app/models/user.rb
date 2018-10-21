@@ -6,7 +6,7 @@ class User < ApplicationRecord
 
   include RatingAverage
 
-  has_secure_password
+  has_secure_password # validations: :github ? !:github : true
 
   validates :username, uniqueness: true,
                        length: { minimum: 3, maximum: 30 }
